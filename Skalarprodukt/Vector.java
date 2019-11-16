@@ -28,7 +28,7 @@ public class Vector {
 	}
 	
 	public void readComponentsFromUserInput() {
-		for(int i = 0; i < getVector().length - 1; i++) {
+		for(int i = 0; i < getVector().length; i++) {
 			getVector()[i] = SimpleIO.getDouble(EINGABE_AUFFORDERUNG_COMPONENTE.replace("[n]", (i + 1)  + ""));
 		}
 	}
@@ -44,7 +44,6 @@ public class Vector {
 		while(dimension < 0) {
 			dimension = SimpleIO.getInt(EINGABE_AUFFORDERUNG_DIMENSION);
 		}
-		dimension++;
 		
 		Vector p = Vector.newWithDimension(dimension);
 		Vector q = Vector.newWithDimension(dimension);
