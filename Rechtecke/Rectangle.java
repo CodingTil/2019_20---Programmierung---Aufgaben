@@ -136,7 +136,7 @@ public class Rectangle {
 		int x, y, width, height;
 		
 		x = Utils.min(r1.getX(), r2.getX());
-		y = Utils.min(r1.getY(), r2.getY());
+		y = Utils.max(r1.getY(), r2.getY());
 		width = Utils.max(r1.getX() + r1.getWidth(), r2.getX() + r2.getWidth()) - x;
 		height = Utils.max(r1.getY() + r1.getHeight(), r2.getY() + r2.getHeight()) - y;
 		
@@ -165,7 +165,7 @@ public class Rectangle {
 	private static Rectangle intersection(Rectangle r1, Rectangle r2) {
 		int x, y, width, height;
 		
-		x = Utils.max(r1.getX(), r2.getX());
+		x = Utils.min(r1.getX(), r2.getX());
 		y = Utils.max(r1.getY(), r2.getY());
 		width = Utils.min(r1.getX() + r1.getWidth(), r2.getX() + r2.getWidth()) - x;
 		height = Utils.min(r1.getY() + r1.getHeight(), r2.getY() + r2.getHeight()) - y;
