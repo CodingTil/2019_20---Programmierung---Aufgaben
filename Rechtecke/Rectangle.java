@@ -16,10 +16,12 @@ public class Rectangle {
 	 * @param heightInput Höhe
 	 */
 	public Rectangle(int xInput, int yInput, int widthInput, int heightInput) {
-		setX(xInput);
-		setY(yInput);
-		setWidth(widthInput);
-		setHeight(heightInput);
+		this.x = xInput;
+		this.y = yInput;
+		if(widthInput < 0) return;
+		this.width = widthInput;
+		if(heightInput < 0) return;
+		this.height = heightInput;
 	}
 	
 	/**
@@ -76,46 +78,6 @@ public class Rectangle {
 	 */
 	public int getHeight() {
 		return height;
-	}
-	
-	/**
-	 * Setze den Wert der X-Koordinate neu
-	 * @param x Neuer Wert der X-Koordinate
-	 */
-	public void setX(int x) {
-		this.x = x;
-	}
-	
-	/**
-	 * Setze den Wert der Y-Koordinate neu
-	 * @param y Neuer Wert der Y-Koordinate
-	 */
-	public void setY(int y) {
-		this.y = y;
-	}
-	
-	/**
-	 * Setze den Wert der Breite neu
-	 * @param width Neuer Wert der Breite
-	 */
-	public void setWidth(int width) {
-		if(x < 0) {
-			Utils.error("Die Breite darf nicht negativ sein!");
-		}else {
-			this.width = width;
-		}
-	}
-	
-	/**
-	 * Setze den Wert der X-Koordinate neu
-	 * @param height Neuer Wert der Höhe
-	 */
-	public void setHeight(int height) {
-		if(x < 0) {
-			Utils.error("Die Höhe darf nicht negativ sein!");
-		}else {
-			this.height = height;
-		}
 	}
 	
 	/**
