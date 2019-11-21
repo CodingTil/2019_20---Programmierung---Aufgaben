@@ -33,11 +33,17 @@ public class Rectangle {
 	}
 	
 	/**
-	 * Kopiert das aktuelle Objekt
-	 * @return Das kopierte Objekt
+	 * Kopiert das Übergebene Rechteck
+	 * @param toCopy Das zu kopierende Rechteck
+	 * @return Das kopierte Rechteck
 	 */
-	public Rectangle copy() {
-		return new Rectangle(getX(), getY(), getWidth(), getHeight());
+	public static Rectangle copy(Rectangle toCopy) {
+		if(toCopy == null) {
+			Utils.error("Das zu kopierende Rechteck ist nicht initailisiert");
+			return null;
+		}else {
+			return new Rectangle(toCopy.getX(), toCopy.getY(), toCopy.getWidth(), toCopy.getHeight());
+		}
 	}
 	
 	/**
@@ -117,30 +123,31 @@ public class Rectangle {
 	 * @param rectangles Menge an Rechtecken, welche eingeschloßen werden sollen
 	 * @return Das Rechteck, welches alle anderen Rechtecke einschließt
 	 */
-	public static Rectangle union(Rectangle... rectangles) {
+	public static Rectangle union(Rectangle... rectangles) { //Statisch, da diese Methode ein komplett neues Rechteck erstellt, was von mehreren anderen abhängig ist (Parameter) und nicht nur einem.
 		if(rectangles == null || rectangles.length == 0) return null; 
 		
-		Rectangle rectangle = rectangles[0];
+		Rectangle rectangle = Rectangle.copy(rectangles[0]);
 		for(int i = 1; i < rectangles.length; i++) {
-			rectangle = union(rectangle, rectangles[i]);
+			rectangle = getUnion(rectangle, rectangles[i]);
 		}
 		
 		return rectangle;
 	}
 	
-
 	/*
 	 * Berechnet das kleinstmögliche Rechteck, welches 2 andere einschließt
 	 */
-	private static Rectangle union(Rectangle r1, Rectangle r2) {
-		int x, y, width, height;
+	private static Rectangle getUnion(Rectangle r1, Rectangle r2) {
+		if(r1 == null || r2 == null) return null;
+		
+		int x, y, x_width, y_height;
 		
 		x = Utils.min(r1.getX(), r2.getX());
 		y = Utils.max(r1.getY(), r2.getY());
-		width = Utils.max(r1.getX() + r1.getWidth(), r2.getX() + r2.getWidth()) - x;
-		height = Utils.max(r1.getY() + r1.getHeight(), r2.getY() + r2.getHeight()) - y;
+		x_width = Utils.max(r1.getX() + r1.getWidth(), r2.getX() + r2.getWidth());
+		y_height = Utils.min(r1.getY() - r1.getHeight(), r2.getY() - r2.getHeight());
 		
-		return new Rectangle(x, y, width, height);
+		return new Rectangle(x, y, x_width - x, y - y_height);
 	}
 	
 	/**
@@ -148,12 +155,12 @@ public class Rectangle {
 	 * @param rectangles Menge an Rechtecken, welche geschnitten werden sollen
 	 * @return Das Schnittrechteck, welche alle anderen schneidet
 	 */
-	public static Rectangle intersection(Rectangle... rectangles) {
+	public static Rectangle intersection(Rectangle... rectangles) { //Statisch, da diese Methode ein komplett neues Rechteck erstellt, was von mehreren anderen abhängig ist (Parameter) und nicht nur einem.
 		if(rectangles == null || rectangles.length == 0) return null; 
 		
 		Rectangle rectangle = rectangles[0];
 		for(int i = 0; i < rectangles.length; i++) {
-			rectangle = intersection(rectangle, rectangles[i]);
+			rectangle = getIntersection(rectangle, rectangles[i]);
 		}
 		
 		return rectangle;
@@ -162,15 +169,17 @@ public class Rectangle {
 	/*
 	 * Berechnet das Schnittrechteck zweier Rechtecke
 	 */
-	private static Rectangle intersection(Rectangle r1, Rectangle r2) {
-		int x, y, width, height;
+	private static Rectangle getIntersection(Rectangle r1, Rectangle r2) {
+		if(r1 == null || r2 == null) return null;
 		
-		x = Utils.min(r1.getX(), r2.getX());
-		y = Utils.max(r1.getY(), r2.getY());
-		width = Utils.min(r1.getX() + r1.getWidth(), r2.getX() + r2.getWidth()) - x;
-		height = Utils.min(r1.getY() + r1.getHeight(), r2.getY() + r2.getHeight()) - y;
+		int x, y, x_width, y_height;
+		
+		x = Utils.max(r1.getX(), r2.getX());
+		y = Utils.min(r1.getY(), r2.getY());
+		x_width = Utils.min(r1.getX() + r1.getWidth(), r2.getX() + r2.getWidth());
+		y_height = Utils.max(r1.getY() - r1.getHeight(), r2.getY() - r2.getHeight());		
 				
-		return new Rectangle(x, y, width, height);
+		return new Rectangle(x, y, x_width - x, y - y_height);
 	}
 	
 	/**
@@ -199,6 +208,8 @@ public class Rectangle {
 	
 	/**
 	 * {@inheritDoc}
+	 * Überschreibt die toString()-Methode von Object.class
+	 * Methode, die eine schriftliche Darstellung des Rechtecks erzeugt in Form einer Auflistung aller Eck-Koordinaten
 	 */
 	@Override
 	public String toString() {
