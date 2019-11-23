@@ -48,28 +48,24 @@ public class Squares {
      * @param length The current length.
      */
     private static void paintFractal(Canvas c, int level, double length) {
-		if(level <= 0) return;
-		
+		if(level <= 0) {
+			return;
+		}
 		c.square(length);
-		
-		//move to upper left corner
 		double lh = length / 2;
-		c.move(-lh, -lh);
+		// move to upper left corner
+		c.move(-lh,-lh);
 		Squares.paintFractal(c, level - 1, lh);
-		
-		//move to upper right corner
+		// move to upper right corner
 		c.move(length, 0);
 		Squares.paintFractal(c, level - 1, lh);
-		
-		//move to lower reight corner
+		// move to lower right corner
 		c.move(0, length);
 		Squares.paintFractal(c, level - 1, lh);
-		
-		//move to lower left corner
+		// move to lower left corner
 		c.move(-length, 0);
 		Squares.paintFractal(c, level - 1, lh);
-		
-		//move back to center
+		// move back to center
 		c.move(lh, -lh);
     }
 
