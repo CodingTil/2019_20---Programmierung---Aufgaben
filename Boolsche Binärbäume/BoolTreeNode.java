@@ -287,13 +287,13 @@ public class BoolTreeNode {
 	public boolean findBasicContradictions() {
 		if(isConjunction()) {
 			if(child1.isNegation() && child1.child1.isLeaf() && child2.isLeaf() && child1.child1.variable.equals(child2.variable)) {
-				variable = child2.variable;
+				variable = "false";
 				child1 = null;
 				child2 = null;
 				return true;
 			}
 			if(child2.isNegation() && child2.child1.isLeaf() && child1.isLeaf() && child2.child1.variable.equals(child1.variable)) {
-				variable = child1.variable;
+				variable = "false";
 				child1 = null;
 				child2 = null;
 				return true;
@@ -312,13 +312,13 @@ public class BoolTreeNode {
      */
 	public boolean removeTrueConjuncts() {
 		if(isConjunction()) {
-			if(child1.isLeaf() && child1.variable.equals("true")) {
+			if(child1.isTrueLeaf()) {
 				variable = child2.variable;
 				child1 = child2.child1;
 				child2 = child2.child2;
 				return true;
 			}
-			if(child2.isLeaf() && child2.variable.equals("true")) {
+			if(child2.isTrueLeaf()) {
 				variable = child1.variable;
 				child2 = child1.child2;
 				child1 = child1.child1;
@@ -338,13 +338,13 @@ public class BoolTreeNode {
      */
 	public boolean findFalseConjuncts() {
 		if(isConjunction()) {
-			if(child1.isLeaf() && child1.variable.equals("false")) {
+			if(child1.isFalseLeaf()) {
 				child1 = null;
 				child2 = null;
 				variable = "false";
 				return true;
 			}
-			if(child2.isLeaf() && child2.variable.equals("false")) {
+			if(child2.isFalseLeaf()) {
 				child1 = null;
 				child2 = null;
 				variable = "false";
