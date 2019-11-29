@@ -2,6 +2,9 @@ import java.lang.Math;
 
 /**
  * Program for drawing a Pythagoras tree.
+ * BEACHTEN:
+ * Til Mohr - 405959 (VPL)
+ * Marc Ludevid Wulf - 405401 (VPL)
  */
 public class Pythagoras {
 
@@ -17,15 +20,15 @@ public class Pythagoras {
     }*/
 
     /**
-     * @param args Contains the parameters for the drawing. The first 
-     *             (mandatory) is the recursion level. All further parameters 
-     *             are optional and have default values in case they are not 
-     *             given. Second is the base length of the first square, third 
-     *             and fourth are the angles of the left and right subtrees, 
-     *             respectively, and fifth is the length at which to switch 
-     *             colors from brown to green. Default values are 100, 45, 45, 
-     *             and 10. The two angles must not sum up to more than 120 and 
-     *             each parameter must be positive. Moreover, both angles must 
+     * @param args Contains the parameters for the drawing. The first
+     *             (mandatory) is the recursion level. All further parameters
+     *             are optional and have default values in case they are not
+     *             given. Second is the base length of the first square, third
+     *             and fourth are the angles of the left and right subtrees,
+     *             respectively, and fifth is the length at which to switch
+     *             colors from brown to green. Default values are 100, 45, 45,
+     *             and 10. The two angles must not sum up to more than 120 and
+     *             each parameter must be positive. Moreover, both angles must
      *             be less than 90.
      */
     public static void main(String[] args) {
@@ -102,6 +105,9 @@ public class Pythagoras {
 
     /**
 	 * Draws a pythagoras tree fractal on the specified canvas with the specified recursion level, angles, base length and color switch length, which changes the color, whenever the base length is smaller that it
+	 * BEACHTEN:
+	 * Til Mohr - 405959 (VPL)
+	 * Marc Ludevid Wulf - 405401 (VPL)
      * @param c The canvas to draw the tree on.
 	 * @param level The current recursion level.
 	 * @param length The current base length.
@@ -118,32 +124,32 @@ public class Pythagoras {
         int switchLength
     ) {
 		if(level <= 0 || leftAngle <= 0 || rightAngle <= 0 || leftAngle + rightAngle > 120) return;
-		
+
 		if(length > switchLength) {
 			c.chooseColor(Canvas.BROWN);
 		}else {
 			c.chooseColor(Canvas.GREEN);
 		}
-		
+
 		c.square(length);
-		
+
 		double move_x, move_y;
 		double new_length;
-		
+
 		//move to upper left corner
 		c.move(-length / 2, -length / 2);
-		
+
 		//upper left corner
 		new_length = calculateLength(length, leftAngle, rightAngle);
 		c.rotate(-leftAngle);
-		c.move(new_length / 2, -new_length / 2);	
+		c.move(new_length / 2, -new_length / 2);
 		Pythagoras.paintPythagorasTree(c, level - 1, new_length, leftAngle, rightAngle, switchLength);
 		c.move(- new_length / 2, new_length / 2);
 		c.rotate(leftAngle);
-		
+
 		//move to upper right corner
 		c.move(length, 0);
-		
+
 		//upper right tree
 		new_length = calculateLength(length, rightAngle, leftAngle);
 		c.rotate(rightAngle);
@@ -151,15 +157,17 @@ public class Pythagoras {
 		Pythagoras.paintPythagorasTree(c, level - 1, new_length, leftAngle, rightAngle, switchLength);
 		c.move(new_length / 2, new_length / 2);
 		c.rotate(-rightAngle);
-		
+
 		//move back to center
 		c.move(-length / 2, length / 2);
 	}
-	
-	/**
-	 *
-	 *
-	 *
+
+	/*
+	 * Calculates the length for 2 given angles and a start length
+	 * @param length start length
+	 * @param alpha first angle
+	 * @param beta second angle
+	 * @return Calculated Length for the given angles
 	 */
 	private static double calculateLength(double length, int alpha, int beta) {
 		return length * Math.sin(Math.toRadians(beta)) / Math.sin(Math.toRadians(180 - alpha - beta));
