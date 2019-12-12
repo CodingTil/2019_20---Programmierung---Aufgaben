@@ -5,8 +5,8 @@ import masterplan.Bereich;
 
 public abstract class LehrveranstaltungBase implements Lehrveranstaltung {
 
-	int creditPoints;
-	String description;
+	private int creditPoints;
+	private String description;
 
 	public LehrveranstaltungBase(int creditPoints, String title, String type) {
 		this.creditPoints = creditPoints;

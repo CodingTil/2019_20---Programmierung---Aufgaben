@@ -7,8 +7,6 @@ import masterplan.InvalidMasterplanException;
 import masterplan.Bereich;
 import masterplan.Masterplan;
 
-import java.util.Arrays;
-
 public class BuilderImpl implements MasterplanBuilder, SemesterBuilder {
 
 	private Lehrveranstaltung[][] semesters;

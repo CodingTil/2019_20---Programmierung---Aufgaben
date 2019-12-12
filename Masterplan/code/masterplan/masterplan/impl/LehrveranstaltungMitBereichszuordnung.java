@@ -2,7 +2,7 @@ package masterplan.impl;
 
 import masterplan.Bereich;
 
-public class LehrveranstaltungMitBereichszuordnung extends LehrveranstaltungBase {
+public abstract class LehrveranstaltungMitBereichszuordnung extends LehrveranstaltungBase {
 
 	private Bereich bereich;
 
