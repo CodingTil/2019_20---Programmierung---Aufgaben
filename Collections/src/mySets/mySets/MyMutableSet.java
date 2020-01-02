@@ -29,7 +29,7 @@ public class MyMutableSet<T> extends MyAbstractSet<T> implements Set<T> {
 
 	@Override
 	public boolean remove(Object o) {
-		if(contains(o)) return false;
+		if(!contains(o)) return false;
 
 		MySetElement<T> current = getHead();
 		if(current.equals(o)) {
@@ -76,6 +76,11 @@ public class MyMutableSet<T> extends MyAbstractSet<T> implements Set<T> {
 		MyImmutableSet<T> set = new MyImmutableSet<T>(getHead());
 		setHead(null);
 		return set;
+	}
+
+	//TESTING
+	public static void main(String[] args) {
+		
 	}
 
 }

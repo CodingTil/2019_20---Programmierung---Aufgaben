@@ -21,9 +21,9 @@ class MySetIterator<T> implements Iterator<T> {
 	@Override
 	public T next() throws NoSuchElementException{
 		if(current == null) throw new NoSuchElementException("Der Aktuelle Wert is nicht vorhanden.");
-		MySetElement<T> temp = current;
+		T temp = current.getValue();
 		current = current.getNext();
-		return temp.getValue();
+		return temp;
 	}
 
 	@Override
