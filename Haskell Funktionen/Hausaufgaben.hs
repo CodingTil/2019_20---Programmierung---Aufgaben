@@ -121,4 +121,4 @@ removeDoubles :: [Int] -> [Int]
 removeDoubles [] = []
 removeDoubles [x] = [x]
 removeDoubles (x:y:xs) | x == y = removeDoubles (x:xs)
-                      | otherwise = x : removeDoubles (y:xs)
+                       | otherwise = x : removeDoubles (y:xs)
