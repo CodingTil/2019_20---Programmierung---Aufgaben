@@ -1,4 +1,5 @@
 import Text.Show.Functions
+import Data.List
 
 data BinTree a b = Leaf b | Node a (BinTree a b) (BinTree a b) deriving Show
 
@@ -57,3 +58,39 @@ zipLists f (Cons a la) (Cons b lb) = Cons (f a b) (zipLists f la lb)
 
 skalarprodukt :: List Int -> List Int -> Int
 skalarprodukt la lb = foldList (\x y -> x + y) 0 (zipLists (\x y -> x * y) la lb)
+
+
+
+
+
+
+strings :: Int -> [String]
+strings 0 = [""]
+strings n = concat (map (\x -> map (\tail -> x:tail) tails) ['a'..'z'])
+   where tails = strings (n-1)
+
+palindromes :: [String] -> [String]
+palindromes [] = []
+palindromes xs = filter (\x -> x == reverse x) xs
+
+allPalindromes :: Int -> [String]
+allPalindromes i | i < 0 = []
+                 | otherwise = (palindromes (strings i)) ++ allPalindromes (i+1)
+
+palindrome :: [String]
+palindrome = allPalindromes 1
+
+divisors :: Int -> [Int]
+divisors x = filter (\y -> rem x y == 0) [1..div x 2]
+
+perfectNumbers :: [Int]
+perfectNumbers = filter (\x -> (sum (divisors x)) == x) [2..]
+
+semiperfectNumbers :: [Int]
+semiperfectNumbers = filter (\a -> (any (\x -> (sum x) == a) (subsequences (divisors a)))) [2..]
+
+fibInit :: Int -> Int -> [Int]
+fibInit a b = [a, b] ++ (fibInit (a + b) (b + a + b))
+
+fib :: [Int]
+fib = fibInit 0 1
