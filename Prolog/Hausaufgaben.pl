@@ -1,13 +1,10 @@
 % LIST
 
-cons(_, nil).
-cons(_, cons(X, Y)) :- cons(X, Y).
-
-userDefinedList(cons(_, nil)).
+userDefinedList(nil).
 userDefinedList(cons(_, X)) :- userDefinedList(X).
 
-asPrologList(cons(I, X), [I|B]) :- userDefinedList(cons(I, X)), asPrologList(X, B).
-asPrologList(cons(I, nil), [I]).
+asPrologList(nil, []).
+asPrologList(cons(N, X), [N|Y]) :- asPrologList(X, Y).
 
 flatten([[]], []).
 flatten([[]|Tail], Result) :- flatten(Tail, Result).
